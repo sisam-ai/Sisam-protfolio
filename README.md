@@ -19,4 +19,6 @@ Open `index.html` in a browser. The site uses plain HTML, CSS, and JavaScript, s
 
 ## GitHub Pages
 
+Live site: https://sisam-ai.github.io/Sisam-protfolio/
+
 The included workflow deploys the site from the `main` branch. After the workflow is pushed, select **Settings → Pages → GitHub Actions** if Pages is not already configured. The deployed site is publicly viewable even when its source repository is private. Private-repository Pages hosting requires an eligible GitHub plan.
