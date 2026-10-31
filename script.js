@@ -23,7 +23,7 @@ nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () =
   menuButton?.setAttribute("aria-expanded", "false");
 }));
 
-// Cursed energy reaction challenge
+// Creative energy reaction challenge
 const curseCard = document.querySelector(".game-curse");
 const curseButton = document.querySelector("#curse-button");
 const curseStatus = document.querySelector("#curse-status");
