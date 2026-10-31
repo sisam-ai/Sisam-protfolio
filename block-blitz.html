@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#100d18" />
+  <meta name="description" content="Play Block Blitz, a tiny 30-second block-click game by Sisam." />
+  <title>Block Blitz — Sisam's Mini Game</title>
+  <style>
+    :root{color-scheme:dark;--bg:#100d18;--panel:#1b1425;--pink:#ff7189;--violet:#dda1ff;--cyan:#9fe7ea;--text:#f8f1f7;--muted:#b7aabd;--mono:"DM Mono",Consolas,monospace;--sans:"Nunito",Arial,sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#33213d 0,transparent 48%),var(--bg);color:var(--text);font-family:var(--sans);display:grid;place-items:center;padding:24px}.shell{width:min(760px,100%)}.back{font:11px var(--mono);color:var(--cyan);text-decoration:none}.back:hover{color:var(--pink)}.game{margin-top:24px;padding:clamp(20px,5vw,42px);background:linear-gradient(145deg,rgba(37,27,49,.96),rgba(22,19,32,.98));border:1px solid rgba(221,161,255,.2);border-radius:10px;box-shadow:0 24px 80px rgba(0,0,0,.32)}.eyebrow{margin:0 0 12px;color:var(--pink);font:10px var(--mono);letter-spacing:.17em}.title{font-size:clamp(36px,8vw,66px);line-height:.95;letter-spacing:-.07em;margin:0}.title span{background:linear-gradient(100deg,var(--pink),var(--violet),var(--cyan));background-clip:text;color:transparent}.intro{color:var(--muted);font-size:14px;line-height:1.7;max-width:510px;margin:18px 0 25px}.stats{display:flex;gap:10px;margin-bottom:14px}.stat{flex:1;padding:12px 14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:5px}.stat small{display:block;color:#93869b;font:8px var(--mono);letter-spacing:.12em}.stat strong{display:block;margin-top:5px;font:20px var(--mono);color:var(--cyan)}.arena{height:clamp(220px,48vw,340px);position:relative;overflow:hidden;border:1px solid rgba(159,231,234,.27);border-radius:6px;background:linear-gradient(180deg,#21253d,#242d38 69%,#3a3540 69%,#312934);isolation:isolate}.arena:before{content:"";position:absolute;inset:0;opacity:.15;background-image:linear-gradient(rgba(255,255,255,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.11) 1px,transparent 1px);background-size:26px 26px;z-index:-1}.arena:after{content:"";position:absolute;bottom:28px;left:0;right:0;height:3px;background:#8d739d;box-shadow:0 8px 0 rgba(0,0,0,.14)}.arena-hint{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#d5c9da;font:10px var(--mono);letter-spacing:.1em;pointer-events:none;padding:20px}.target{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border:4px solid #373346;border-radius:4px;background:linear-gradient(135deg,#7cb76e 0 25%,#5b8b61 25% 50%,#83b974 50% 75%,#5c855b 75%);box-shadow:0 8px 0 #302b37,0 0 24px rgba(137,225,184,.33);color:#e5ffd5;font:25px var(--mono);cursor:pointer;animation:spawn .18s ease-out}.target:hover{filter:brightness(1.15)}.target:active{transform:translate(-50%,-43%) scale(.94)}.target[hidden]{display:none}.controls{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}.status{font:10px var(--mono);color:#b7aabd}.start{border:0;border-radius:4px;padding:13px 17px;background:linear-gradient(105deg,var(--pink),var(--violet));color:#241529;font:700 11px var(--mono);cursor:pointer;transition:transform .18s,filter .18s}.start:hover{transform:translateY(-2px);filter:brightness(1.08)}.start:focus-visible,.target:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}.tip{color:#817687;font:9px/1.7 var(--mono);margin:20px 0 0}.tip b{color:var(--cyan);font-weight:400}@keyframes spawn{from{opacity:0;scale:.45;rotate:-12deg}to{opacity:1;scale:1;rotate:0}}@media(max-width:480px){body{padding:14px}.game{padding:20px}.controls{align-items:stretch;flex-direction:column}.start{width:100%}.status{text-align:center}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <a class="back" href="index.html#arcade">← BACK TO SISAM'S WORLD</a>
+    <section class="game" aria-labelledby="game-title">
+      <p class="eyebrow">MINI GAME · 30 SECOND CHALLENGE</p>
+      <h1 class="title" id="game-title">BLOCK <span>BLITZ</span></h1>
+      <p class="intro">Click or tap the block as many times as you can before the timer runs out. The block moves after every hit. Ready?</p>
+      <div class="stats" aria-live="polite">
+        <div class="stat"><small>SCORE</small><strong id="score">0</strong></div>
+        <div class="stat"><small>TIME</small><strong><span id="time">30</span>s</strong></div>
+        <div class="stat"><small>PERSONAL BEST</small><strong id="best">0</strong></div>
+      </div>
+      <div class="arena" id="arena" aria-label="Game area">
+        <div class="arena-hint" id="hint">PRESS START<br />THEN CATCH THE BLOCK!</div>
+        <button class="target" id="target" type="button" aria-label="Catch the block" hidden>▦</button>
+      </div>
+      <div class="controls"><span class="status" id="status" aria-live="polite">Waiting for player one.</span><button class="start" id="start" type="button">Start game ↗</button></div>
+      <p class="tip"><b>HOW TO PLAY</b> Click the block to score. Your best score is saved in this browser. Edit the HTML, CSS, and JavaScript in this one file to make it your own.</p>
+    </section>
+  </main>
+  <script>
+    // 1. Find the game elements on the page.
+    const arena = document.querySelector("#arena");
+    const target = document.querySelector("#target");
+    const startButton = document.querySelector("#start");
+    const scoreText = document.querySelector("#score");
+    const timeText = document.querySelector("#time");
+    const bestText = document.querySelector("#best");
+    const statusText = document.querySelector("#status");
+    const hint = document.querySelector("#hint");
+
+    // 2. Keep track of the round.
+    let score = 0;
+    let secondsLeft = 30;
+    let timerId;
+    let playing = false;
+    let best = Number(localStorage.getItem("sisam-block-blitz-best")) || 0;
+    bestText.textContent = best;
+
+    // 3. Move the block to a random spot inside the game area.
+    function moveBlock() {
+      const x = 10 + Math.random() * 80;
+      const y = 18 + Math.random() * 58;
+      target.style.left = `${x}%`;
+      target.style.top = `${y}%`;
+      target.textContent = ["▦", "◆", "✦", "⬚"][Math.floor(Math.random() * 4)];
+    }
+
+    // 4. Start a new 30-second round.
+    function startGame() {
+      clearInterval(timerId);
+      score = 0;
+      secondsLeft = 30;
+      playing = true;
+      scoreText.textContent = score;
+      timeText.textContent = secondsLeft;
+      statusText.textContent = "Go! Catch those blocks!";
+      hint.hidden = true;
+      target.hidden = false;
+      startButton.textContent = "Restart round ↻";
+      moveBlock();
+
+      timerId = setInterval(() => {
+        secondsLeft -= 1;
+        timeText.textContent = secondsLeft;
+        if (secondsLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    // 5. Finish the round and save a new personal best.
+    function endGame() {
+      clearInterval(timerId);
+      playing = false;
+      target.hidden = true;
+      hint.hidden = false;
+      hint.innerHTML = `TIME'S UP!<br />YOU CAUGHT ${score} BLOCK${score === 1 ? "" : "S"}`;
+      statusText.textContent = score > best ? "New personal best! Nice run." : "Round complete. Try again?";
+      if (score > best) {
+        best = score;
+        bestText.textContent = best;
+        localStorage.setItem("sisam-block-blitz-best", best);
+      }
+      startButton.textContent = "Play again ↻";
+    }
+
+    // 6. Every hit adds a point and moves the target.
+    target.addEventListener("click", () => {
+      if (!playing) return;
+      score += 1;
+      scoreText.textContent = score;
+      moveBlock();
+    });
+
+    startButton.addEventListener("click", startGame);
+  </script>
+</body>
+</html>
